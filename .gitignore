@@ -1,0 +1,6 @@
+#build files
+*.o
+BrownianFractal
+
+#QT moc files
+moc_*.cpp
