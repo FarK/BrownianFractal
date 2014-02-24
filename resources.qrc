@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/resources/">
+    <file>resources/AddSource.png</file>
+    <file>resources/AddUnfree.png</file>
+    <file>resources/Reset.png</file>
+  </qresource>
+</RCC>

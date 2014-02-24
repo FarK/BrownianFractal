@@ -5,5 +5,4 @@ Makefile
 
 #QT files
 moc_*.cpp
-*.qrc
 qrc_*.cpp
