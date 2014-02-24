@@ -56,8 +56,7 @@ void UnfreeParticles::resize(){
 
 	//Remove outside particles
 	iterator it = particles.begin();
-	iterator end = particles.end();
-	while(it != end){
+	while(it != particles.end()){
 		if((*it).position.x >= world->width ||
 		   (*it).position.y >= world->height
 		  ){
@@ -78,6 +77,17 @@ void UnfreeParticles::addParticle(const Particle& p){
 //	collisionMask[p.position.x][p.position.y] = PS_EMPTY;
 //	particles.remove(p);
 //}
+
+void UnfreeParticles::clear(){
+	particles.clear();
+
+	for(int i=world->width-1 ; i>=0 ; --i){
+		std::vector<ParticleState>(PS_EMPTY).swap(collisionMask[i]);
+	}
+	std::vector<std::vector<ParticleState>>().swap(collisionMask);
+
+	resize();
+}
 
 UnfreeParticles::iterator UnfreeParticles::begin(){
 	return particles.begin();

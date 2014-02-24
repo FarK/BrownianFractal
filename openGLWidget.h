@@ -3,6 +3,7 @@
 
 #include <QtOpenGL>
 #include "fractal.h"
+#include "toolbar.h"
 
 class OpenGLWidget : public QGLWidget{
 	Q_OBJECT
@@ -12,6 +13,10 @@ class OpenGLWidget : public QGLWidget{
 		int fps;
 		int mspf;
 		QElapsedTimer timer;
+
+		Tool selectedTool;
+		double particleSourceIntensity;	// particles/iteration
+		int freeParticlesToAdd;
 
 	public:
 		OpenGLWidget(QWidget* parent = 0);
@@ -28,6 +33,11 @@ class OpenGLWidget : public QGLWidget{
 
 	public slots:
 		void setFPS(int fps);
+		void setSelectedTool(Tool tool);
+		void setParticleSourceIntensity(double particlesPerIteration);
+		void setFreeParticlesToAdd(int number);
+		void addFreeParticles();
+		void reset();
 };
 
 #endif

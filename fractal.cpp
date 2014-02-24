@@ -1,5 +1,7 @@
 #include "fractal.h"
 
+#include "vector.h"
+
 Fractal::Fractal(int width, int height) :
 	world(width, height),
 	random("al hfjpo234r arfkqj dfeasf"),
@@ -7,7 +9,7 @@ Fractal::Fractal(int width, int height) :
 	freeParticles(&world, &random),
 	unfreeParticles(&world)
 {
-	freeParticles.randomInit(1000);
+	freeParticles.addRandomParticles(1000);
 }
 
 bool Fractal::iterate(){
@@ -36,6 +38,17 @@ bool Fractal::iterate(){
 		}
 	}
 
+	//Generate particles from sources and deletes which are blocked
+	std::list<ParticleSource>::iterator it = particleSources.begin();
+	while(it != particleSources.end()){
+		it->createParticles(freeParticles);
+
+		if(unfreeParticles.checkCollision(Particle(it->position)))
+			particleSources.erase(it++);
+		else
+			++it;
+	}
+
 	return freeParticles.empty();
 }
 
@@ -45,4 +58,14 @@ void Fractal::resize(int width, int height){
 	world.height = height;
 	unfreeParticles.resize();
 	freeParticles.resize();
+}
+
+void Fractal::addFreeParticleSource(int x, int y, double particlesPerIteration){
+	particleSources.push_back(ParticleSource(Vector<int>(x,y), particlesPerIteration));
+}
+
+void Fractal::reset(){
+	particleSources.clear();
+	freeParticles.clear();
+	unfreeParticles.clear();
 }

@@ -45,6 +45,7 @@ class UnfreeParticles{
 		//void removeParticle(const Particle& p);
 
 		//List control methods
+		void clear();
 		iterator begin();
 		const_iterator cbegin() const;
 		iterator end();

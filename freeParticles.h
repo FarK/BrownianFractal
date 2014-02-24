@@ -19,14 +19,16 @@ class FreeParticles{
 
 		FreeParticles(World* world, Random* random);
 
-		//Generates 'number' particles with random coordinates inside
-		//limits
-		void randomInit(int number);
+		//Generates particles with random coordinates inside limits
+		void addRandomParticle();
+		void addRandomParticles(int number);
 
 		//Deletes all particles that are outside limits
 		void resize();
 
 		//List control methos
+		void add(const Particle& p);
+		void clear();
 		bool empty();
 		iterator begin();
 		const_iterator cbegin() const;

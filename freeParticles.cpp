@@ -5,9 +5,13 @@ FreeParticles::FreeParticles(World* world, Random* random) :
 	random(random)
 {}
 
-void FreeParticles::randomInit(int number){
+void FreeParticles::addRandomParticle(){
+	particles.push_back(random->randomPosition(world->width,world->height));
+}
+
+void FreeParticles::addRandomParticles(int number){
 	for(int i=number ; i>=0 ; --i)
-		particles.push_back(random->randomPosition(world->width,world->height));
+		addRandomParticle();
 }
 
 void FreeParticles::resize(){
@@ -21,6 +25,14 @@ void FreeParticles::resize(){
 		else	++it;
 
 	}
+}
+
+void FreeParticles::add(const Particle& p){
+	particles.push_back(p);
+}
+
+void FreeParticles::clear(){
+	particles.clear();
 }
 
 bool FreeParticles::empty(){

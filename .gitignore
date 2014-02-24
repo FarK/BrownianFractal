@@ -3,5 +3,7 @@
 BrownianFractal
 Makefile
 
-#QT moc files
+#QT files
 moc_*.cpp
+*.qrc
+qrc_*.cpp

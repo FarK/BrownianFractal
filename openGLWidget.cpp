@@ -4,7 +4,10 @@
 OpenGLWidget::OpenGLWidget(QWidget* parent) :
 	QGLWidget(parent),
 	fps(60),
-	mspf(1000/60)
+	mspf(1000/60),
+	selectedTool(ADD_UNFREE_PARTICLE),
+	particleSourceIntensity(0.2),
+	freeParticlesToAdd(100)
 {
 	startTimer(0);
 	timer.start();
@@ -62,9 +65,19 @@ void OpenGLWidget::paintGL(){
 	glFlush();
 }
 
-
 void OpenGLWidget::mousePressEvent(QMouseEvent* e){
-	fractal->unfreeParticles.addParticle(Particle(e->x(), height()-e->y()));
+	switch(selectedTool){
+		case ADD_UNFREE_PARTICLE:
+			fractal->unfreeParticles.addParticle(Particle(e->x(), height()-e->y()));
+		break;
+
+		case ADD_FREE_PARTICLE_SOURCE:
+			fractal->addFreeParticleSource(e->x(), height()-e->y(), particleSourceIntensity);
+		break;
+
+		default:
+		break;
+	}
 }
 
 void OpenGLWidget::timerEvent(QTimerEvent* event){
@@ -80,4 +93,24 @@ void OpenGLWidget::timerEvent(QTimerEvent* event){
 void OpenGLWidget::setFPS(int fps){
 	this->fps = fps;
 	this->mspf = 1000/fps;
+}
+
+void OpenGLWidget::setSelectedTool(Tool tool){
+	selectedTool = tool;
+}
+
+void OpenGLWidget::setParticleSourceIntensity(double particlesPerIteration){
+	particleSourceIntensity = particlesPerIteration;
+}
+
+void OpenGLWidget::setFreeParticlesToAdd(int number){
+	freeParticlesToAdd = number;
+}
+
+void OpenGLWidget::addFreeParticles(){
+	fractal->freeParticles.addRandomParticles(freeParticlesToAdd);
+}
+
+void OpenGLWidget::reset(){
+	fractal->reset();
 }

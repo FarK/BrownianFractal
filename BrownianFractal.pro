@@ -7,6 +7,8 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 
+RESOURCES = resources.qrc
+
 QT += opengl
 
 QMAKE_CXXFLAGS += -std=c++0x\
@@ -25,7 +27,9 @@ SOURCES +=	main.cpp\
 		unfreeParticles.cpp\
 		particle.cpp\
 		random.cpp\
-		vector.cpp
+		vector.cpp\
+		particleSource.cpp\
+		toolbar.cpp
 
 HEADERS +=	openGLWidget.h\
 		fractal.h\
@@ -35,4 +39,6 @@ HEADERS +=	openGLWidget.h\
 		unfreeParticles.h\
 		particle.h\
 		random.h\
-		vector.h
+		vector.h\
+		particleSource.h\
+		toolbar.h
