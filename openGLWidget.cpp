@@ -73,7 +73,6 @@ void OpenGLWidget::treatMouseEvent(QMouseEvent* e){
 
 		case ADD_FREE_PARTICLE_SOURCE:
 			fractal->addFreeParticleSource(e->x(), height()-e->y(), particleSourceIntensity);
-			printf("add source\n");
 		break;
 
 		default:
