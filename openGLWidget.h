@@ -27,8 +27,10 @@ class OpenGLWidget : public QGLWidget{
 		virtual void resizeGL(int w, int h);
 		virtual void paintGL();
 
+	private:
+		void treatMouseEvent(QMouseEvent* e);
 		void mousePressEvent(QMouseEvent* e);
-
+		void mouseMoveEvent(QMouseEvent* e);
 		void timerEvent(QTimerEvent* event);
 
 	public slots:

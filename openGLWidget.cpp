@@ -65,7 +65,7 @@ void OpenGLWidget::paintGL(){
 	glFlush();
 }
 
-void OpenGLWidget::mousePressEvent(QMouseEvent* e){
+void OpenGLWidget::treatMouseEvent(QMouseEvent* e){
 	switch(selectedTool){
 		case ADD_UNFREE_PARTICLE:
 			fractal->unfreeParticles.addParticle(Particle(e->x(), height()-e->y()));
@@ -73,10 +73,26 @@ void OpenGLWidget::mousePressEvent(QMouseEvent* e){
 
 		case ADD_FREE_PARTICLE_SOURCE:
 			fractal->addFreeParticleSource(e->x(), height()-e->y(), particleSourceIntensity);
+			printf("add source\n");
 		break;
 
 		default:
 		break;
+	}
+}
+
+void OpenGLWidget::mousePressEvent(QMouseEvent* e){
+	treatMouseEvent(e);
+}
+
+void OpenGLWidget::mouseMoveEvent(QMouseEvent* e){
+	//The event somtimes contains an invalid position. We discart those
+	//events.
+	if(e->x() < width() && e->y() < height() && e->x() >= 0 && e->y() >= 0){
+		//Only treat event if mouse button if pressed
+		if(e->buttons() & Qt::LeftButton){
+			treatMouseEvent(e);
+		}
 	}
 }
 
